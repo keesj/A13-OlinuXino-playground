@@ -1,4 +1,4 @@
 A13-OlinuXino-playground
 ========================
 
-Playing around  with the A13-OlinuXino-MICRO
+Playing around with the A13-OlinuXino-MICRO
