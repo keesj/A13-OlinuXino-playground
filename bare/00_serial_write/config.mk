@@ -13,6 +13,7 @@
 # code or code that will run on an os
 #
 # /opt/codesourcery/arm/bin/arm-none-eabi-gcc
-CROSS_COMPILE=arm-none-eabi-
+#CROSS_COMPILE=arm-none-eabi-
+CROSS_COMPILE=arm-linux-androideabi-
 
 #LOAD_ADDRESS=0x4B0000000
