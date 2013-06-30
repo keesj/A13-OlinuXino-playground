@@ -50,8 +50,8 @@ fisk -l on your device might look like this:
 ------------------------
  git clone https://github.com/linux-sunxi/u-boot-sunxi.git
  cd u-boot-sunxi
- make a13_olinuxino CROSS_COMPILE=arm-none-eabi-
- DEV=/dev/sdXFixMe
+ make A13-OLinuXino CROSS_COMPILE=arm-linux-androideabi-
+ DEV=/dev/mmcblk0
  sudo dd if=spl/sunxi-spl.bin of=$DEV bs=1024 seek=8
  sudo dd if=u-boot.bin of=$DEV bs=1024 seek=32
 ------------------------
