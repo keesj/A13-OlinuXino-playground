@@ -35,7 +35,8 @@ needed:
 # as we also want to use cpp (the c preprosessor)
 #
 %.s.o:%.S
-	${CROSS_COMPILE}gcc -fPIC -shared -nostdlib -o  $@  $<
+	${CROSS_COMPILE}gcc -fPIC -nostdlib -o  $@  $<
+#	${CROSS_COMPILE}gcc -fPIC -shared -nostdlib -o  $@  $<
 	
 #
 # Link using a linker script 

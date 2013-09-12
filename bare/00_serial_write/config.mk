@@ -14,6 +14,7 @@
 #
 # /opt/codesourcery/arm/bin/arm-none-eabi-gcc
 #CROSS_COMPILE=arm-none-eabi-
-CROSS_COMPILE=arm-linux-androideabi-
+#CROSS_COMPILE=arm-linux-androideabi-
+CROSS_COMPILE=arm-linux-gnueabi-
 
 #LOAD_ADDRESS=0x4B0000000
