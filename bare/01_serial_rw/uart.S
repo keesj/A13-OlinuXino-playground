@@ -22,6 +22,10 @@ header:
 write_header_loop:
 	ldrb r1 , [r0] , #1  @  r1 = *r0++
 	cmp r1,#0
+	@
+	@ We don't have a stack in this example so it can become hard
+	@ to keep DRY.
+	@
 	strne r1, [r2] @ write to the UART not even waiting for the buffer 
 		       @ to be empty.
 	bne write_header_loop
@@ -30,15 +34,20 @@ write_header_loop:
 
 write_uart:
 	ldr r2, = UART0_BASE
-	str r1, [r2] @ write to the UART not even waiting for the buffer 
+wait_for_empty:
+	ldr r3,[r2 , #UART_LSR]  @UART Line Status register
+	and r3,r3,#UART_LSR_THRE  @check if there is data present
+	cmp r3,#UART_LSR_THRE
+	beq wait_for_empty
+	str r1, [r2] @ write to the UART the buffer is empty
 	mov pc,lr    @ jump back
 	
 read_uart:
 	mov r0,#0 @ set return value 
 	ldr r2, = UART0_BASE     @UART base address
 	ldr r3,[r2 , #UART_LSR]  @UART Line Status register
-	and r3,r3,#0x1  @check if there is data present
-	cmp r3,#0x1
+	and r3,r3,#UART_LSR_DR  @check if there is data present
+	cmp r3,#UART_LSR_DR
 	bne read_uart_end
 	ldr r1, [r2]  @load the data
 	mov r0,#1 @ set return value 
@@ -47,4 +56,4 @@ read_uart_end:
 end:
 	b end
 hello:
-	.string "Hello,from Olimex\n\r"
+	.string "Hello,from Olimex. typed text will be echoed back\n\r"

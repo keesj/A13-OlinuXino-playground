@@ -35,6 +35,7 @@
 #define UART_HALT 	0xA4 	/* UART Halt TX Register  */
 
 
-#define UART_LSR_THRE (1 <<5)   /* THR Empty bit of the Line status register */
+#define UART_LSR_DR 	(0x1 <<1)   /* Data ready */
+#define UART_LSR_THRE 	(0x1 <<5)   /* THRE Transmit Holding Register Empty */
 
 #endif
