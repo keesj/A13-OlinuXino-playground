@@ -38,7 +38,7 @@ wait_for_empty:
 	ldr r3,[r2 , #UART_LSR]  @UART Line Status register
 	and r3,r3,#UART_LSR_THRE  @check if there is data present
 	cmp r3,#UART_LSR_THRE
-	beq wait_for_empty
+	bne wait_for_empty
 	str r1, [r2] @ write to the UART the buffer is empty
 	mov pc,lr    @ jump back
 	
