@@ -1,28 +1,56 @@
 #include "uart_registers.h"
+	.text
+	.align
+	.section "vectors"
+reset: b start
+undef: b undef
+swi:   b swi_handler
+pabt:  b pabt
+dabt:  b dabt
+	nop
+irq:   b irq
+fiq:   b fiq
 
-	.text	
-	.align  
+	.text	@ tell the assembler this is a text section. 
+	.align  @ older ARM cpu's like their code to be non word alligned
+		@ this tells the linker the next command needs to be word
+		@ aliged.
 start:
 _start: @main loop
+	@ setup vector base address
 	.global _start
+	mrc p15, 0, r0, c1, c0, 0
+	bic r0, r0, #0x2000 @ set SCTRL.V to 0
+	mcr p15, 0, r0, c1, c0, 0
+	mov r0 , #0
+	mcr p15, 0, r0, c12, c0, 0 @ Write VBAR
 	ldr sp, =stack_top @ from the linker script
-	bl header    @ 
+	adr r0,hello	
+	bl write_string    @ 
 main:
 	bl read_uart
-	cmp r0,#1    @ compare the return value of read_uart and 0
-	bleq write_uart   @ if null call write uart 
+	cmp r0,#1    @ the return value of read_uart and 0
+	bne main   @ if null call write uart 
+	bl write_uart   @ if null call write uart 
+	swi 0
 	bl main     @ back to the start
 
-header:
+swi_handler:
 	push {r4-r10,lr}   
-	adr r0,hello	
-write_header_loop:
+	adr r0,swi_hello	
+	bl write_string    @ 
+	pop     {r4-r10, lr}
+	bx lr
+
+write_string: @r0 == string
+	push {r4-r10,lr}   
+write_string_loop:
 	ldrb r1 , [r0] , #1  @  r1 = *r0++
 	push {r1}
 	bl write_uart
 	pop {r1}
 	cmp r1,#0
-	bne write_header_loop
+	bne write_string_loop
 	pop     {r4-r10, lr}
 	bx lr
 
@@ -55,4 +83,6 @@ read_uart_end:
 end:
 	b end
 hello:
-	.string "Hello,from Olimex. typed text will be echoed back\n\r"
+	.string "Hello,from Olimex. typed text will be echoed back.\n\r\r\n"
+swi_hello:
+	.string "Hello from SWI\r\n"

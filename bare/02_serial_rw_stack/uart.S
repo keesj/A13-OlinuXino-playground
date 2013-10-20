@@ -1,15 +1,17 @@
 #include "uart_registers.h"
 
-	.text	
-	.align  
+	.text	@ tell the assembler this is a text section. 
+	.align  @ older ARM cpu's like their code to be non word alligned
+		@ this tells the linker the next command needs to be word
+		@ aliged.
 start:
 _start: @main loop
 	.global _start
-	ldr sp, =stack_top @ from the linker script
+	ldr sp, =stack_end @we created a 20 world sized stack
 	bl header    @ 
 main:
 	bl read_uart
-	cmp r0,#1    @ compare the return value of read_uart and 0
+	cmp r0,#1    @ the return value of read_uart and 0
 	bleq write_uart   @ if null call write uart 
 	bl main     @ back to the start
 
@@ -56,3 +58,45 @@ end:
 	b end
 hello:
 	.string "Hello,from Olimex. typed text will be echoed back\n\r"
+stack:
+	.4byte 0x0
+	.4byte 0x0
+	.4byte 0x0
+	.4byte 0x0
+	.4byte 0x0
+	.4byte 0x0
+	.4byte 0x0
+	.4byte 0x0
+	.4byte 0x0
+	.4byte 0x0
+	.4byte 0x0
+	.4byte 0x0
+	.4byte 0x0
+	.4byte 0x0
+	.4byte 0x0
+	.4byte 0x0
+	.4byte 0x0
+	.4byte 0x0
+	.4byte 0x0
+	.4byte 0x0
+	.4byte 0x0
+	.4byte 0x0
+	.4byte 0x0
+	.4byte 0x0
+	.4byte 0x0
+	.4byte 0x0
+	.4byte 0x0
+	.4byte 0x0
+	.4byte 0x0
+	.4byte 0x0
+	.4byte 0x0
+	.4byte 0x0
+	.4byte 0x0
+	.4byte 0x0
+	.4byte 0x0
+	.4byte 0x0
+	.4byte 0x0
+	.4byte 0x0
+	.4byte 0x0
+	.4byte 0x0
+stack_end:
