@@ -32,7 +32,7 @@ main:
 	cmp r0,#1    @ the return value of read_uart and 0
 	bne main   @ if null call write uart 
 	bl write_uart   @ if null call write uart 
-	swi 0
+	swi 0           @ test calling supervisor
 	bl main     @ back to the start
 
 swi_handler:

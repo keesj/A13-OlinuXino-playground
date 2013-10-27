@@ -1,0 +1,20 @@
+[0x00000000]> pd
+         0x00000000     18008fe2         add r0, pc, #24 ; 0x18
+         0x00000004     2c209fe5         ldr r2, [pc, #44] ; 0x00000038; => 0x01c28400
+     .-> 0x00000008     0110d0e4         ldrb r1, [r0], #1
+     |   0x0000000c     000051e3         cmp r1, #0 ; 0x0
+     |   0x00000010     00108215         strne r1, [r2]
+     `=< 0x00000014     fbffff1a         bne 0x00000008
+    ,==< 0x00000018     ffffffea         b 0x0000001c
+   ``--> 0x0000001c     feffffea         b 0x0000001c
+         0x00000020  str.Hello,fromOlimex02:
+         0x00000020  string (21): "Hello,fromOlimex02"
+         0x00000035     00000000         andeq r0, r0, r0
+         0x00000039     84c20100         andeq ip, r1, r4, lsl #5
+
+keesj@sylvarna:~/projects/a13/A13-OlinuXino-playground/bare/01_serial_write$ hexdump -C uart.bin
+00000000  18 00 8f e2 2c 20 9f e5  01 10 d0 e4 00 00 51 e3  |...., ........Q.|
+00000010  00 10 82 15 fb ff ff 1a  ff ff ff ea fe ff ff ea  |................|
+00000020  48 65 6c 6c 6f 2c 66 72  6f 6d 20 4f 6c 69 6d 65  |Hello,from Olime|
+00000030  78 20 30 32 0a 00 00 00  00 84 c2 01 00 00 00 00  |x 02............|
+*
