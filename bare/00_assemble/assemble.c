@@ -5,6 +5,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/types.h>
+#include <string.h>
 
 #include "asmgen.h"
 
@@ -102,6 +104,12 @@ main(int argc,char **argv)
          */
 
 	printf("Assembler\n");
+
+	/* Create a new empty buffer */
+	u_int8_t buffer[100];
+	memset(buffer,0,sizeof(buffer));
+   	printf("0xe59f001c        ldr     r0, [pc, #28]   ; 24 <__bss_end__-0x8018>\n");
+	printf("0x%08x\n",LDR_LITERAL(INST_COND_AL,R0,28));
 	/* Create a memory structure for the prog */
 	/*prog  * p = new_prog(); */
 	//var uart_base = p.add_var_u32_t("UART_BASE",0x01C28400);

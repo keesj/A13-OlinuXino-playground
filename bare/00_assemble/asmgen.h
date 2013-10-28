@@ -1,4 +1,8 @@
 
+#define R0 0
+#define R1 1
+#define R2 2
+#define R3 3
 
 #define INST_COND_SHIFT 28
 #define INST_COND_V(x) (x  << INST_COND_SHIFT)
@@ -23,17 +27,52 @@
 #define INST_COND_UNC INST_COND_V(0xf) /* 1111  the instruction is executed irrespective of the value of the condition flags. */
 
 #define INST_CLASS_SHIFT 25
-#define INST_CLASS_V(x) (x  << INST_COND_SHIFT)
-#define INST_CLASS_MASK INST_COND_V(0x7)
+#define INST_CLASS_V(x) (x  << INST_CLASS_SHIFT)
+#define INST_CLASS_MASK INST_CLASS_V(0x7)
 
 /* The class bits [27:25] determine the instruction class , these value only hold if cond != INST_COND_AL */
-#define INST_CLASS_DPMISC0 (0x0) /*  00xb - Data-processing and miscellaneous instructions 0 */
-#define INST_CLASS_DPMISC1 (0x1) /*  00xb - Data-processing and miscellaneous instructions 0 */
-#define INST_CLASS_LS0   (0x2) /*  010b - Load/store word and unsigned byte */
-#define INST_CLASS_LS1   (0x3) /*  011b - Load/store word and unsigned byte and Media instructions */
-#define INST_CLASS_BL0   (0x4) /*  10xb -  Branch, branch with link, and block data transfer */
-#define INST_CLASS_BL1   (0x5) /*  10xb -  Branch, branch with link, and block data transfer */
-#define INST_CLASS_CPSV0 (0x6) /*  11xb -  Coprocessor instructions, and Supervisor Call */
-#define INST_CLASS_CPSV1 (0x7) /*  11xb -  Coprocessor instructions, and Supervisor Call */
+#define INST_CLASS_DPMISC0 INST_CLASS_V(0x0) /*  00xb - Data-processing and miscellaneous instructions 0 */
+#define INST_CLASS_DPMISC1 INST_CLASS_V(0x1) /*  00xb - Data-processing and miscellaneous instructions 0 */
+#define INST_CLASS_LS0     INST_CLASS_V(0x2) /*  010b - Load/store word and unsigned byte */
+#define INST_CLASS_LS1     INST_CLASS_V(0x3) /*  011b - Load/store word and unsigned byte and Media instructions */
+#define INST_CLASS_BL0     INST_CLASS_V(0x4) /*  10xb -  Branch, branch with link, and block data transfer */
+#define INST_CLASS_BL1     INST_CLASS_V(0x5) /*  10xb -  Branch, branch with link, and block data transfer */
+#define INST_CLASS_CPSV0   INST_CLASS_V(0x6) /*  11xb -  Coprocessor instructions, and Supervisor Call */
+#define INST_CLASS_CPSV1   INST_CLASS_V(0x7) /*  11xb -  Coprocessor instructions, and Supervisor Call */
 
-/* DPMISC0 */
+
+/* Load and store operations */
+#define INST_CLASS_LS_OP1_SHIFT  20
+#define INST_CLASS_LS_OP1_V(x) (x  << INST_CLASS_LS_OP1_SHIFT)
+#define INST_CLASS_LS_OP1_MASK INST_CLASS_LS_OP1_V(0x1F)
+
+#define INST_CLASS_LS_RN_SHIFT  16 /* source register */
+#define INST_CLASS_LS_RN_V(x) (x  << INST_CLASS_LS_RN_SHIFT)
+#define INST_CLASS_LS_RN_MASK INST_CLASS_LS_OP1_V(0xF)
+
+#define INST_CLASS_LS_RN_LITERAL  INST_CLASS_LS_RN_V(0xf) /* Literal e.g. not from a register */
+
+#define INST_CLASS_LS_RT_SHIFT  12 /* destination register */
+#define INST_CLASS_LS_RT_V(x) (x  << INST_CLASS_LS_RT_SHIFT)
+#define INST_CLASS_LS_RT_MASK INST_CLASS_LS_OP1_V(0xF)
+
+#define IMM12_SHIFT  0
+#define IMM12_V(x) (x << IMM12_SHIFT)
+#define IMM12_MASK IMM12_V(0xfff)
+
+#define INST_CLASS_LS_RT_V(x) (x  << INST_CLASS_LS_RT_SHIFT)
+#define INST_CLASS_LS_RT_MASK INST_CLASS_LS_OP1_V(0xF)
+
+/*
+Load Register (literal) calculates an address from the PC value and an immediate offset, loads a word from memory,
+and writes it to a register. For information about memory accesses see Memory accesses on page A8-294.
+*/
+
+#define INST_CLASS_LS_OP1_LOAD_REG_LITERAL INST_CLASS_LS_OP1_V(0x19) /* 11001 */
+#define LDR_LITERAL(cond,rt,value)  ( \
+	cond  \
+	| INST_CLASS_LS0 /* A=0 */  \
+	| INST_CLASS_LS_OP1_LOAD_REG_LITERAL \
+	| INST_CLASS_LS_RN_LITERAL \
+	| INST_CLASS_LS_RT_V(rt)\
+	| IMM12_V(value) )
