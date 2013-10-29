@@ -1,6 +1,6 @@
 	.text	@ tell the assembler this is a text section. 
 	ldr r0, [pc , #0x24 -8]
-	ldr r1, =0x28
+	mov r1, #0x28
 start_of_loop:  
 	ldrb r2 , [r1]  @load a byte
 	cmp r2,#0

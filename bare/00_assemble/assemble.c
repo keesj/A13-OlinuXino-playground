@@ -110,6 +110,8 @@ main(int argc,char **argv)
 	memset(buffer,0,sizeof(buffer));
    	printf("0xe59f001c        ldr     r0, [pc, #28]   ; 24 <__bss_end__-0x8018>\n");
 	printf("0x%08x\n",LDR_LITERAL(INST_COND_AL,R0,28));
+   	printf("0xe3a01028        mov     r1, #40 ; 0x28\n");
+	printf("0x%08x\n",MOV_LITERAL(INST_COND_AL,R1,40));
 	/* Create a memory structure for the prog */
 	/*prog  * p = new_prog(); */
 	//var uart_base = p.add_var_u32_t("UART_BASE",0x01C28400);

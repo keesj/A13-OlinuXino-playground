@@ -2,7 +2,7 @@
 # 
 #
 CFLAGS=-g
-assemble:
+assemble:asmgen.h
 
 clean:
 	$(MAKE) -C sample

@@ -56,6 +56,8 @@
 #define INST_CLASS_LS_RT_V(x) (x  << INST_CLASS_LS_RT_SHIFT)
 #define INST_CLASS_LS_RT_MASK INST_CLASS_LS_OP1_V(0xF)
 
+//http://blogs.arm.com/software-enablement/251-how-to-load-constants-in-assembly-for-arm-architecture/
+//http://www.opensource.apple.com/source/lldb/lldb-69/source/Plugins/Process/Utility/ARMUtils.h
 #define IMM12_SHIFT  0
 #define IMM12_V(x) (x << IMM12_SHIFT)
 #define IMM12_MASK IMM12_V(0xfff)
@@ -69,10 +71,30 @@ and writes it to a register. For information about memory accesses see Memory ac
 */
 
 #define INST_CLASS_LS_OP1_LOAD_REG_LITERAL INST_CLASS_LS_OP1_V(0x19) /* 11001 */
+
 #define LDR_LITERAL(cond,rt,value)  ( \
-	cond  \
+	(cond & INST_COND_MASK) \
 	| INST_CLASS_LS0 /* A=0 */  \
 	| INST_CLASS_LS_OP1_LOAD_REG_LITERAL \
 	| INST_CLASS_LS_RN_LITERAL \
 	| INST_CLASS_LS_RT_V(rt)\
 	| IMM12_V(value) )
+
+/* Data processing (LITERAL) */
+#define INST_CLASS_DPMISC1_OP_SHIFT  20 /* op */
+#define INST_CLASS_DPMISC1_OP_V(x) (x  << INST_CLASS_DPMISC1_OP_SHIFT)
+#define INST_CLASS_DPMISC1_OP_MASK INST_CLASS_DPMISC1_OP_V(0x1F)
+
+#define INST_CLASS_DPMISC1_OP_MOV_IM INST_CLASS_DPMISC1_OP_V(0x1a) /* 11010b */
+//1110 001 1 1010 00000001000000101000b
+
+#define INST_CLASS_DPMISC1_OP_MOV_RD_SHIFT  12 /* destination register */
+#define INST_CLASS_DPMISC1_OP_MOV_RD_V(x)  (x << INST_CLASS_DPMISC1_OP_MOV_RD_SHIFT) 
+
+
+#define MOV_LITERAL(cond,rd,value)  ( \
+	(cond & INST_COND_MASK) \
+	| INST_CLASS_DPMISC1 \
+	| INST_CLASS_DPMISC1_OP_MOV_IM \
+	| INST_CLASS_DPMISC1_OP_MOV_RD_V(rd) \
+	| IMM12_V(value)  )
