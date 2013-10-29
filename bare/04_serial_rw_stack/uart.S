@@ -7,7 +7,7 @@
 start:
 _start: @main loop
 	.global _start
-	ldr sp, =stack_end @we created a 20 world sized stack
+	ldr sp, =stack_end @we created a 20 word sized stack bellow
 	bl header    @ 
 main:
 	bl read_uart
