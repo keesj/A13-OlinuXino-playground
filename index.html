@@ -3386,12 +3386,17 @@ cellspacing="0" cellpadding="4">
 <div class="sect1">
 <h2 id="_uboot_and_booting">Uboot and booting</h2>
 <div class="sectionbody">
+<div class="literalblock">
+<div class="content">
+<pre><tt>http://linux-sunxi.org/U-Boot#Compilation</tt></pre>
+</div></div>
 <div class="listingblock">
 <div class="content">
 <pre><tt> git clone https://github.com/linux-sunxi/u-boot-sunxi.git
  cd u-boot-sunxi
- make a13_olinuxino CROSS_COMPILE=arm-none-eabi-
- DEV=/dev/sdXFixMe
+ grep sunxi boards.cfg | awk '{print $7}'
+ make A13-OLinuXinoM CROSS_COMPILE=arm-linux-androideabi-
+ DEV=/dev/mmcblk0
  sudo dd if=spl/sunxi-spl.bin of=$DEV bs=1024 seek=8
  sudo dd if=u-boot.bin of=$DEV bs=1024 seek=32</tt></pre>
 </div></div>
@@ -3415,7 +3420,7 @@ cellspacing="0" cellpadding="4">
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2013-05-27 23:49:30 CEST
+Last updated 2014-02-08 10:18:25 CET
 </div>
 </div>
 </body>
