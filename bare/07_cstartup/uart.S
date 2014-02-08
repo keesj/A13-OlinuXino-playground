@@ -25,6 +25,9 @@ _start: @main loop
 	mov r0 , #0
 	mcr p15, 0, r0, c12, c0, 0 @ Write VBAR
 	ldr sp, =stack_top @ from the linker script
+	ldr fp, =fp_top @ from the linker script
+
+	bl init_bss
 	adr r0,hello	
 	bl write_string    @ 
 	bl main
@@ -32,6 +35,19 @@ _start: @main loop
 	bleq write_string    @ 
 	b end
 
+init_bss:
+	push {r4-r10,lr}   
+	ldr r1, =bss_start
+	ldr r2, =bss_end
+	mov r3, #0
+init_bss_loop:
+	strb  r3, [r1], #1
+	cmp r1,r2
+	bne init_bss_loop
+	
+	pop  {r4-r10,lr}
+	bx lr
+	
 swi_handler:
 	push {r4-r10,lr}   
 	adr r0,swi_hello	
