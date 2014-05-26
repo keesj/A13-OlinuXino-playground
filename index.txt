@@ -37,7 +37,7 @@ The layout looks something like this:
 | EXT2          | --- | Rest 
 |=====
 
-fisk -l on your device might look like this:
+fdisk -l on your device might look like this:
 ---------------------------------
     Device Boot      Start         End      Blocks   Id  System
  /dev/sdc1            2048       43007       20480    b  W95 FAT32
@@ -64,7 +64,7 @@ Afther this the device will boot and if you have a serial attached you can see t
 == bare bones programming ==
 
 The things I am currently playing with can be found in the git repo
-http://github.com/keesj/A13-OlinuXino-playground/tree/master/bare/00_serial_write
+http://github.com/keesj/A13-OlinuXino-playground/tree/master/bare/
 
 == Kernel and script.bin ==
 

@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
-<meta name="generator" content="AsciiDoc 8.6.7" />
+<meta name="generator" content="AsciiDoc 8.6.9" />
 <title>13-OlinuXino-MICRO info</title>
 <style type="text/css">
 /* Shared CSS for AsciiDoc xhtml11 and html5 backends */
@@ -87,9 +87,15 @@ ul, ol, li > p {
 ul > li     { color: #aaa; }
 ul > li > * { color: black; }
 
-pre {
+.monospaced, code, pre {
+  font-family: "Courier New", Courier, monospace;
+  font-size: inherit;
+  color: navy;
   padding: 0;
   margin: 0;
+}
+pre {
+  white-space: pre-wrap;
 }
 
 #author {
@@ -219,7 +225,7 @@ div.exampleblock > div.content {
 }
 
 div.imageblock div.content { padding-left: 0; }
-span.image img { border-style: none; }
+span.image img { border-style: none; vertical-align: text-bottom; }
 a.image:visited { color: white; }
 
 dl {
@@ -415,12 +421,6 @@ div.unbreakable { page-break-inside: avoid; }
  *
  * */
 
-tt {
-  font-family: "Courier New", Courier, monospace;
-  font-size: inherit;
-  color: navy;
-}
-
 div.tableblock {
   margin-top: 1.0em;
   margin-bottom: 1.5em;
@@ -453,12 +453,6 @@ div.tableblock > table[frame="vsides"] {
  * html5 specific
  *
  * */
-
-.monospaced {
-  font-family: "Courier New", Courier, monospace;
-  font-size: inherit;
-  color: navy;
-}
 
 table.tableblock {
   margin-top: 1.0em;
@@ -539,6 +533,8 @@ body.manpage div.sectionbody {
 @media print {
   body.manpage div#toc { display: none; }
 }
+
+
 </style>
 <script type="text/javascript">
 /*<![CDATA[*/
@@ -782,7 +778,8 @@ Document</p></div>
 <div class="paragraph"><p>If you have the <a href="https://www.olimex.com/Products/Components/Cables/USB-Serial-Cable/USB-Serial-Cable-F/">Olimex USB-SERIAL-CABLE</a> GND=BLUE, RX(INPUT)=GREEN, TX(OUTPUT)=RED you can connect it the following way:</p></div>
 <div class="imageblock">
 <div class="content">
-<img alt="photo of connecting the Serial to the 13-OlinuXino-MICRO" src="data:image/jpg;base64,
+<img alt="photo of connecting the Serial to the 13-OlinuXino-MICRO"
+src="data:image/jpeg;base64,
 /9j/4AAQSkZJRgABAQEASABIAAD/4cg0RXhpZgAASUkqAAgAAAAMAAABBAABAAAAwAwAAAEBBAAB
 AAAAkAkAAA8BAgAIAAAAngAAABABAgAJAAAApgAAABIBAwABAAAAAQAAABoBBQABAAAA0AAAABsB
 BQABAAAA2AAAACgBAwABAAAAAgAAADEBAgALAAAAsAAAADIBAgAUAAAAvAAAABMCAwABAAAAAQAA
@@ -2983,7 +2980,8 @@ Zj/l/IcYB8/uefPQrxqJFHqR+NHt9kGv/9k=" />
 </div>
 <div class="imageblock">
 <div class="content">
-<img alt="schematics for the serial" src="data:image/png;base64,
+<img alt="schematics for the serial"
+src="data:image/png;base64,
 iVBORw0KGgoAAAANSUhEUgAAAUoAAADmCAIAAAA84ltzAAAAA3NCSVQICAjb4U/gAAAACXBIWXMA
 AA7EAAAOxAGVKw4bAAAgAElEQVR4nOy9aVxUV7a//xTzrIDMqOCQKIoDoiLOikZF46xRY6IxemOM
 JulO/2/3TSd20rc7N7nJzS9Jt4lJm5ioOEVEcIyIQ3CIoCAIKiCgokwCUoBAVVH1f3G6KscqKBGK
@@ -3377,9 +3375,9 @@ cellspacing="0" cellpadding="4">
 <div class="paragraph"><p>fdisk -l on your device might look like this:</p></div>
 <div class="listingblock">
 <div class="content">
-<pre><tt>    Device Boot      Start         End      Blocks   Id  System
+<pre><code>    Device Boot      Start         End      Blocks   Id  System
  /dev/sdc1            2048       43007       20480    b  W95 FAT32
- /dev/sdc2           43008      990975      473984   83  Linux</tt></pre>
+ /dev/sdc2           43008      990975      473984   83  Linux</code></pre>
 </div></div>
 </div>
 </div>
@@ -3388,17 +3386,17 @@ cellspacing="0" cellpadding="4">
 <div class="sectionbody">
 <div class="literalblock">
 <div class="content">
-<pre><tt>http://linux-sunxi.org/U-Boot#Compilation</tt></pre>
+<pre><code>http://linux-sunxi.org/U-Boot#Compilation</code></pre>
 </div></div>
 <div class="listingblock">
 <div class="content">
-<pre><tt> git clone https://github.com/linux-sunxi/u-boot-sunxi.git
+<pre><code> git clone https://github.com/linux-sunxi/u-boot-sunxi.git
  cd u-boot-sunxi
  grep sunxi boards.cfg | awk '{print $7}'
  make A13-OLinuXinoM CROSS_COMPILE=arm-linux-androideabi-
  DEV=/dev/mmcblk0
  sudo dd if=spl/sunxi-spl.bin of=$DEV bs=1024 seek=8
- sudo dd if=u-boot.bin of=$DEV bs=1024 seek=32</tt></pre>
+ sudo dd if=u-boot.bin of=$DEV bs=1024 seek=32</code></pre>
 </div></div>
 <div class="paragraph"><p>Afther this the device will boot and if you have a serial attached you can see the u-boot command prompt</p></div>
 </div>
@@ -3420,7 +3418,7 @@ cellspacing="0" cellpadding="4">
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2014-02-08 10:18:25 CET
+Last updated 2014-05-26 14:09:23 CEST
 </div>
 </div>
 </body>
