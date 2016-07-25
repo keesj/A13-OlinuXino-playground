@@ -12,9 +12,9 @@ irq:   b irq
 fiq:   b fiq
 
 	.text	@ tell the assembler this is a text section. 
-	.align  @ older ARM cpu's like their code to be non word alligned
-		@ this tells the linker the next command needs to be word
-		@ aliged.
+	.align  @ older ARM cpu's don't like their code to be non word 
+		@ alligned this tells the linker the next command needs 
+		@ to be word aliged.
 start:
 _start: @main loop
 	@ setup vector base address

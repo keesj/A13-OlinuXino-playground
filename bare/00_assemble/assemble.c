@@ -33,7 +33,7 @@ main(int argc,char **argv)
          *
 	 * The ARM Reference Manual chapter "A1 Introduction to the ARM architecture"
 	 * describes this into way more details and also goes into optimized versions
-	 * of the above but the above.  Any ARM program will consist of the above command 
+	 * of the above. Any ARM program will consist of the above command 
          * this is often combined with same memory data store (e.g. to put variable in)
  	 *
 	 * The focus here in on understating how things work and not so much
@@ -62,7 +62,7 @@ main(int argc,char **argv)
 	 * 	goto  start_of_loop
 	 * end:
 	 *    goto end
-	 * We also need to   uart register address and a 0 terminated hello world
+	 * We also need to know the uart register address and a 0 terminated hello world
 	 *   Somewhere in the program. We will do that just after the program end.
 	 * 
  	 * In ARM assembly using the GNU assembly syntax this would look  like this:
