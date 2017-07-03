@@ -33,9 +33,8 @@ write_uart:
 	push {r4-r10,lr}   
 	ldr r2, = UART0_BASE
 wait_for_empty:
-	ldr r3,[r2 , #UART_LSR]  @UART Line Status register
-	and r3,r3,#UART_LSR_THRE  @check if there is data present
-	cmp r3,#UART_LSR_THRE
+	ldr r3,[r2 ,#UART_UARTFR]  @UART Flag resiter
+	tst r3,#UART_UARTFR_TXFF
 	bne wait_for_empty
 	str r1, [r2] @ write to the UART the buffer is empty
 	pop     {r4-r10, lr}
@@ -45,9 +44,8 @@ read_uart:
 	push {r4-r10,lr}   
 	mov r0,#0 @ set return value 
 	ldr r2, = UART0_BASE     @UART base address
-	ldr r3,[r2 , #UART_LSR]  @UART Line Status register
-	and r3,r3,#UART_LSR_DR  @check if there is data present
-	cmp r3,#UART_LSR_DR
+	ldr r3,[r2 , #UART_UARTFR]  @UART Line Status register
+	tst r3,#UART_UARTFR_RXFE  @check if there is data present
 	bne read_uart_end
 	ldr r1, [r2]  @load the data
 	mov r0,#1 @ set return value 
@@ -57,7 +55,7 @@ read_uart_end:
 end:
 	b end
 hello:
-	.string "Hello,from Olimex. typed text will be echoed back\n\r"
+	.string "Hello,from Qemu. typed text will be echoed back\n\r"
 stack:
 	.4byte 0x0
 	.4byte 0x0
