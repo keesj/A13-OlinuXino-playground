@@ -12,7 +12,7 @@
 /* 
  * The following addresses are "in memory" addresses for the hardware. 
  */
-#define UART0_BASE  0x01C28400  
+#define UART0_BASE  0x101f1000
 #define UART3_BASE  0x01C28C00 
 
 

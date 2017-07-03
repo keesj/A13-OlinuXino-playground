@@ -15,7 +15,7 @@
  */
 
 SECTIONS {
-	. = 0x4B000000; 
+	. = 0x10000;
 	.text : { * (.text) ; } 
 	.data : { * (.data) ; }
 }

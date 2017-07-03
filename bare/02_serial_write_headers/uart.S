@@ -89,4 +89,4 @@ write:
 end:
 	b end
 hello:
-	.string "Hello,from Olimex\n"
+	.string "Hello,from Qemu\n"
