@@ -42,7 +42,7 @@ needed:
 # Link using a linker script 
 #
 %.elf:${OBJECTS}
-	${CROSS_COMPILE}ld -T bare-a13.lds -o $@ $<
+	${CROSS_COMPILE}ld -T versatilepb.lds -o $@ $<
 
 #
 # We are loading the binary directly into memory so we need a flat model.
@@ -51,6 +51,7 @@ needed:
 	${CROSS_COMPILE}objcopy -O binary $< $@
 
 run:uart.bin
-	./upload.expect
+	QEMU_AUDIO_DRV="none" qemu-system-arm -M versatilepb -m 128M -nographic  -kernel uart.bin -s
+
 clean:
 	rm -rf *.bin *.elf *.o *.out
