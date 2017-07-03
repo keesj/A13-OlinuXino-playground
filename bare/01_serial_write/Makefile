@@ -42,7 +42,7 @@ needed:
 # Link using a linker script 
 #
 %.elf:${OBJECTS}
-	${CROSS_COMPILE}ld -Ttext=0x00 -o $@ $<
+	${CROSS_COMPILE}ld -Ttext=0x10000 -o $@ $<
 
 #
 # We are loading the binary directly into memory so we need a flat model.
@@ -51,6 +51,7 @@ needed:
 	${CROSS_COMPILE}objcopy -O binary $< $@
 
 run:uart.bin
-	./upload.expect --load_address 0x00000
+	 qemu-system-arm -M versatilepb -m 128M -nographic  -kernel uart.bin
+
 clean:
 	rm -rf *.bin *.elf *.o *.out

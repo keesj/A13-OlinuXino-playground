@@ -13,5 +13,5 @@ end:
 	b end
 	.align
 hello:
-	.string "Hello,from Olimex 02\n"
-	.equ    UART0_BASE,0x01C28400 @define a constant that points to the UART register
+	.string "Hello,from Qemu\n"
+	.equ    UART0_BASE,0x101f1000 @define a constant that points to the UART register
