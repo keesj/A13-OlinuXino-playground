@@ -51,7 +51,7 @@ needed:
 	${CROSS_COMPILE}objcopy -O binary $< $@
 
 run:uart.bin
-	qemu-system-arm -M versatilepb -m 128M -nographic  -kernel uart.bin
+	QEMU_AUDIO_DRV="none" qemu-system-arm -M versatilepb -m 128M -nographic  -kernel uart.bin
 
 clean:
 	rm -rf *.bin *.elf *.o *.out
