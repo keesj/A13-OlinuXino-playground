@@ -3,7 +3,6 @@
  */
 
 stack_size = 512;
-fp_size = 512;
 
 SECTIONS {
         . = 0x10000;
@@ -22,9 +21,6 @@ SECTIONS {
 		. += stack_size;
 		stack_top = .;
 
-		fp_bottom = .; /* room for the frame pointers */
-		. += fp_size;
-		fp_top = .;
 		
 	}
 	bss_start = .;

@@ -9,8 +9,7 @@ _start: @main loop
 	@ setup vector base address
 	.global _start
 	ldr sp, =stack_top @ from the linker script
-	ldr fp, =fp_top @ from the linker script
-
+	ldr fp, =0 @ 
 	bl init_bss
 	bl main
 	cmp r0,#0
