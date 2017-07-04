@@ -19,19 +19,35 @@ start:
 _start: @main loop
 	@ setup vector base address
 	.global _start
-	mrc p15, 0, r0, c1, c0, 0
-	bic r0, r0, #0x2000 @ set SCTRL.V to 0
-	mcr p15, 0, r0, c1, c0, 0
-	mov r0 , #0
-	mcr p15, 0, r0, c12, c0, 0 @ Write VBAR
+	ldr r0, =vtable_start
+	ldr r1, =#0
+
+	ldr r2 , [r0] , #4  @  r2 = *r0++
+	str r2,  [r1] , #4  @  
+	ldr r2 , [r0] , #4  @  r2 = *r0++
+	str r2,  [r1] , #4  @  
+	ldr r2 , [r0] , #4  @  r2 = *r0++
+	str r2,  [r1] , #4  @  
+	ldr r2 , [r0] , #4  @  r2 = *r0++
+	str r2,  [r1] , #4  @  
+	ldr r2 , [r0] , #4  @  r2 = *r0++
+	str r2,  [r1] , #4  @  
+	ldr r2 , [r0] , #4  @  r2 = *r0++
+	str r2,  [r1] , #4  @  
+	ldr r2 , [r0] , #4  @  r2 = *r0++
+	str r2,  [r1] , #4  @  
+	ldr r2 , [r0] , #4  @  r2 = *r0++
+	str r2,  [r1] , #4  @  
+	
+
 	ldr sp, =stack_top @ from the linker script
-	adr r0,hello	
-	bl write_string    @ 
+	//adr r0,hello	
+	//bl write_string    @ 
 main:
-	bl read_uart
-	cmp r0,#1    @ the return value of read_uart and 0
-	bne main   @ if null call write uart 
-	bl write_uart   @ if null call write uart 
+//	bl read_uart
+//	cmp r0,#1    @ the return value of read_uart and 0
+//	bne main   @ if null call write uart 
+//	bl write_uart   @ if null call write uart 
 	swi 0           @ test calling supervisor
 	bl main     @ back to the start
 
