@@ -21,28 +21,17 @@ _start: @main loop
 	.global _start
 	ldr r0, =vtable_start
 	ldr r1, =#0
-
-	ldr r2 , [r0] , #4  @  r2 = *r0++
-	str r2,  [r1] , #4  @  
-	ldr r2 , [r0] , #4  @  r2 = *r0++
-	str r2,  [r1] , #4  @  
-	ldr r2 , [r0] , #4  @  r2 = *r0++
-	str r2,  [r1] , #4  @  
-	ldr r2 , [r0] , #4  @  r2 = *r0++
-	str r2,  [r1] , #4  @  
-	ldr r2 , [r0] , #4  @  r2 = *r0++
-	str r2,  [r1] , #4  @  
-	ldr r2 , [r0] , #4  @  r2 = *r0++
-	str r2,  [r1] , #4  @  
-	ldr r2 , [r0] , #4  @  r2 = *r0++
-	str r2,  [r1] , #4  @  
-	ldr r2 , [r0] , #4  @  r2 = *r0++
-	str r2,  [r1] , #4  @  
+	ldr r2, =#8
+cp_vtable:
+	ldr r4 , [r0] , #4  @  r2 = *r0++
+	str r4,  [r1] , #4  @  
+	subs r2, #1
+	bne cp_vtable
 	
 
 	ldr sp, =stack_top @ from the linker script
-	//adr r0,hello	
-	//bl write_string    @ 
+//	adr r0,hello	
+//	bl write_string    @ 
 main:
 //	bl read_uart
 //	cmp r0,#1    @ the return value of read_uart and 0
