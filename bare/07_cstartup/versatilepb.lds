@@ -6,8 +6,8 @@ stack_size = 512;
 fp_size = 512;
 
 SECTIONS {
-	. = 0x0;
-	.text : { * (vectors) 
+        . = 0x10000;
+	.text : { * (crt0) 
 	; } 
 	.text : { * (.text) 
 	; } 
