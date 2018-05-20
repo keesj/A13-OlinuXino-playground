@@ -1,4 +1,4 @@
-= 13-OlinuXino-MICRO info =
+# 13-OlinuXino-MICRO info
 
 I recently purchased a 13-OlinuXino-MICRO. The goal is to port MINIX to that board. I therefore am gattering some information here.
 Document
@@ -16,16 +16,17 @@ Links:
 * link:git://github.com/tsgan/allwinner_a10.git[FreeBSD port to the a10]
 
 
-== Serial and serial cable ==
+## Serial and serial cable
 
 If you have the link:https://www.olimex.com/Products/Components/Cables/USB-Serial-Cable/USB-Serial-Cable-F/[Olimex USB-SERIAL-CABLE] GND=BLUE, RX(INPUT)=GREEN, TX(OUTPUT)=RED you can connect it the following way:
+
 
 image::img/photo_serial_small.jpg[photo of connecting the Serial to the 13-OlinuXino-MICRO]
 image::img/A13-OLinuXino-MICRO_serial_sch.png[schematics for the serial]
 
 As usual with serial you need to connect the sending end of the serial to the receiving end of the board.
 
-== Formating the SD-card ==
+## Formating the SD-card
 
 The device doesn't have internal storage and boots from the SD-card. The second and third stage loader (SPL and U-Boot) are loaded from the start of the MMC (not on a file system). The default configuration is to create two partitions the first is a FAT formatted one where u-boot will load files from and the second one probably a ext2 partition. But given the bootloaders are not on the FAT you need to reserve some space at the start (I leave 2048 512 byte blokcs at the start as this is the default fdisk offers).
 
@@ -40,28 +41,29 @@ The layout looks something like this:
 
 
 fisk -l on your device might look like this:
+```
 ---------------------------------
     Device Boot      Start         End      Blocks   Id  System
  /dev/sdc1            2048       43007       20480    b  W95 FAT32
  /dev/sdc2           43008      990975      473984   83  Linux
 ---------------------------------
+```
 
+## Uboot and booting
 
-== Uboot and booting ==
-
-------------------------
+```
  git clone https://github.com/linux-sunxi/u-boot-sunxi.git
  cd u-boot-sunxi
  make a13_olinuxino CROSS_COMPILE=arm-none-eabi-
  DEV=/dev/sdXFixMe
  sudo dd if=spl/sunxi-spl.bin of=$DEV bs=1024 seek=8
  sudo dd if=u-boot.bin of=$DEV bs=1024 seek=32
-------------------------
+```
 
 Afther this the device will boot and if you have a serial attached you can see the u-boot command prompt
 
 
-== Kernel and script.bin ==
+## Kernel and script.bin
 
 script.bin is file used by the sunxi kernel and contains configuration parameters like port GPIO assignments. This file file is created using the fex2bin tool  that can be found in the sunxi-tools git repo. You can convert the bin file into something more readable using bin2fex. If you run that you get link:src/script.bin.fex[Ascii version of script.bin].
 
