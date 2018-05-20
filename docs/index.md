@@ -9,11 +9,11 @@ Datasheets:
 
 Links:
 
-* link:git://github.com/OLIMEX/OLINUXINO.git[OLIMEX git repo] Schematics and some software (including script.bin )
-* link:https://github.com/linux-sunxi/linux-sunxi.git[sunxi Linux Kernel]
-* link:https://github.com/linux-sunxi/u-boot-sunxi.git[u-boot]
-* link:git://github.com/linux-sunxi/sunxi-tools.git[sunxi tools]
-* link:git://github.com/tsgan/allwinner_a10.git[FreeBSD port to the a10]
+* [Schematics and some software including script.bin](git://github.com/OLIMEX/OLINUXINO.git "OLIMEX git repo")
+* [sunxi Linux Kernel](https://github.com/linux-sunxi/linux-sunxi.git)
+* [u-boot](https://github.com/linux-sunxi/u-boot-sunxi.git)
+* [sunxi tools](git://github.com/linux-sunxi/sunxi-tools.git)
+* [FreeBSD port to the a10](git://github.com/tsgan/allwinner_a10.git)
 
 
 ## Serial and serial cable
@@ -21,8 +21,8 @@ Links:
 If you have the link:https://www.olimex.com/Products/Components/Cables/USB-Serial-Cable/USB-Serial-Cable-F/[Olimex USB-SERIAL-CABLE] GND=BLUE, RX(INPUT)=GREEN, TX(OUTPUT)=RED you can connect it the following way:
 
 
-image::img/photo_serial_small.jpg[photo of connecting the Serial to the 13-OlinuXino-MICRO]
-image::img/A13-OLinuXino-MICRO_serial_sch.png[schematics for the serial]
+![photo of connecting the Serial to the 13-OlinuXino-MICRO](img/photo_serial_small.jpg)
+![schematics for the serial](img/A13-OLinuXino-MICRO_serial_sch.png)
 
 As usual with serial you need to connect the sending end of the serial to the receiving end of the board.
 
