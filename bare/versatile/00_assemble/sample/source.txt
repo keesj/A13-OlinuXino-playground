@@ -1,0 +1,15 @@
+   0:	e59f001c 	ldr	r0, [pc, #28]	; 24 <__bss_end__-0x8018>
+   4:	e3a01028 	mov	r1, #40	; 0x28
+   8:	e5d12000 	ldrb	r2, [r1]
+   c:	e3520000 	cmp	r2, #0
+  10:	0a000002 	beq	20 <__bss_end__-0x801c>
+  14:	e5802000 	str	r2, [r0]
+  18:	e2811001 	add	r1, r1, #1
+  1c:	eafffff9 	b	8 <__bss_end__-0x8034>
+  20:	eafffffe 	b	20 <__bss_end__-0x801c>
+  24:	01c28400 	biceq	r8, r2, r0, lsl #8
+  28:	6c6c6548 	cfstr64vs	mvdx6, [ip], #-288	; 0xfffffee0
+  2c:	72662c6f 	rsbvc	r2, r6, #28416	; 0x6f00
+  30:	4f206d6f 	svcmi	0x00206d6f
+  34:	656d696c 	strbvs	r6, [sp, #-2412]!	; 0x96c
+  38:	00000a78 	andeq	r0, r0, r8, ror sl

@@ -1,0 +1,11 @@
+The code in this directory tries to document the process of writing a bare
+bones application. The hardware used is the A13-OlinuXino_MICRO.
+
+One day I hope to merge it with: http://www.bravegnu.org/gnu-eprog/
+
+The setting is a little different as it doesn't concentrate on assembly
+programming itself. It is more of an effort to document and share some of the
+tricks I happen to know.
+
+Best to learn would be to first test the code (make run) and go on from there.
+perhaps just print the few files and start reading.
