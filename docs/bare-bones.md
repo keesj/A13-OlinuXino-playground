@@ -1,21 +1,13 @@
-:data-transition-duration: 500
-:skip-help: true
-
-.. title: ARM Bare bones
+# title: ARM Bare bones
 
 
-----
+![Overview](bare_img/overview.png)
 
 
-.. image:: bare_img/overview.png
-
-----
-
-The serial hello world
-======================
+## The serial hello world
 
 
-.. code-block:: arm
+```
 
         .text	@ tell the assembler this is a text section. 
         adr r0,hello
@@ -34,19 +26,18 @@ The serial hello world
     hello:
         .string "Hello,from Qemu\n"
         .equ    UART0_BASE,0x101f1000 @define a constant that points to the UART register
+```
 
 
-----
-
-Assemble
-========
+## Assemble
 
 
-* arm-none-eabi-as -o uart.o uart.S
-* arm-none-eabi-objdump -S uart.o
+```
+arm-none-eabi-as -o uart.o uart.S
+arm-none-eabi-objdump -S uart.o
+```
 
-.. code-block:: c-objdump
-
+```
         uart.o:     file format elf32-littlearm
 
 
@@ -73,17 +64,17 @@ Assemble
         2c:	0a756d65 	.word	0x0a756d65
         30:	00000000 	.word	0x00000000
         34:	101f1000 	.word	0x101f1000
+```
 
-----
 
-Link
-====
+## Link
 
-* arm-none-eabi-ld -Ttext=0x10000 -o out.elf uart.o 
-* arm-none-eabi-objdump -S out.elf
+```
+arm-none-eabi-ld -Ttext=0x10000 -o out.elf uart.o 
+arm-none-eabi-objdump -S out.elf
+```
 
-.. code-block:: c-objdump
-
+```
         out.elf:     file format elf32-littlearm
 
 
@@ -110,17 +101,17 @@ Link
         1002c:	0a756d65 	.word	0x0a756d65
         10030:	00000000 	.word	0x00000000
         10034:	101f1000 	.word	0x101f1000
+```
 
-----
 
-Strip
-=====
+## Strip
 
-* arm-none-eabi-strip out.elf 
-* arm-none-eabi-objdump -S uart.elf 
+```
+arm-none-eabi-strip out.elf 
+arm-none-eabi-objdump -S uart.elf 
+```
 
-.. code-block:: c-objdump
-
+```
 	uart.elf:     file format elf32-littlearm
 
 
@@ -142,18 +133,16 @@ Strip
 	   10030:	00000000 	andeq	r0, r0, r0
 	   10034:	101f1000 	andsne	r1, pc, r0
 
+```
 
+## Convert to bin
 
-----
+```
+arm-linux-gnueabi-objcopy -O binary uart.elf uart.bin
+hexdump -e '4/1 "%02X "' -e '"\n"' uart.bin
+```
 
-Convert to bin
-==============
-
-* arm-linux-gnueabi-objcopy -O binary uart.elf uart.bin
-* hexdump -e '4/1 "%02X "' -e '"\n"' uart.bin
-
-.. code-block:: c-objdump
-
+```
 	18 00 8F E2
 	28 20 9F E5
 	01 10 D0 E4
@@ -179,15 +168,14 @@ Convert to bin
 	D6 B7 E1 9E
 	BC E2 47 18
 	01 55 E8 9D
+```
 
 
-----
+## Execute
 
-
-Execute
-=======
-
+```
 qemu-system-arm -M versatilepb -m 128M -nographic  -kernel uart.bin
+```
 
 ```
 Hello,from Qemu
@@ -196,32 +184,24 @@ Hello,from Qemu
 ----
 
 
-Step through
-============
+## Step through
 
+```
 qemu-system-arm -M versatilepb -m 128M -nographic  -kernel uart.bin -s -S
 arm-none-eabi-gdb uart.elf 
+```
 
-.. image:: bare_img/step_by_step.png
-
-
-----
-
-Instruction & Encoding
-======================
-
-Instruction set
-http://infocenter.arm.com/help/topic/com.arm.doc.qrc0001l/QRC0001_UAL.pdf
-
-Instruction encoding
-http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.ddi0210c/CACCCHGF.html
+![step by step](bare_img/step_by_step.png)
 
 
 
-----
+## Instruction & Encoding
 
-Checklist
-=========
+[Instruction set](http://infocenter.arm.com/help/topic/com.arm.doc.qrc0001l/QRC0001_UAL.pdf)
+[Instruction encoding](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.ddi0210c/CACCCHGF.html)
+
+
+## Checklist
 
 * Talking about the ARM 32 bits instruction set
 * Load store archtitecture
@@ -237,16 +217,12 @@ Checklist
 * There are also CP instructions
 
 
-Next step
-=========
+## Next step
 
 * More examples (headers, stack and hacking?)
 
 
-----
-
-Resources
-=========
+## Resources
 
 Code as presented 
 
