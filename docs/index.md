@@ -14,6 +14,7 @@ Links:
 * [u-boot](https://github.com/linux-sunxi/u-boot-sunxi.git)
 * [sunxi tools](git://github.com/linux-sunxi/sunxi-tools.git)
 * [FreeBSD port to the a10](git://github.com/tsgan/allwinner_a10.git)
+* [Bare bones presentation](bare-bones.html)
 
 
 ## Serial and serial cable
